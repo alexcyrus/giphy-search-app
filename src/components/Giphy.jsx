@@ -9,10 +9,8 @@ const Giphy = () => {
           api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
         }
       })
-
       console.log(results);
     }
-
     fetchData();
   })
 
