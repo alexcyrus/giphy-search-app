@@ -7,6 +7,6 @@ const App = () => {
     <Giphy />
   </div>
   )
-}
+};
 
 export default App;
