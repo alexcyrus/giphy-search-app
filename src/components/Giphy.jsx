@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./Loader";
 import Paginate from "./Paginate";
+import {FacebookShareButton} from "react-share";
 
 const Giphy = () => {
   const [data, setData] = useState([]);
@@ -44,7 +45,9 @@ const Giphy = () => {
     return currentItems.map(el => {
       return (
         <div key={el.id} className="gif">
-          <img src={el.images.fixed_height.url} />
+          <FacebookShareButton url={el.images.fixed_height.url}>
+            <img src={el.images.fixed_height.url} />
+          </FacebookShareButton>
         </div>
       )
     })
