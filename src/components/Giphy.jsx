@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "./Loader";
 import Paginate from "./Paginate";
-import {FacebookShareButton} from "react-share";
+import { FacebookShareButton } from "react-share";
 
 const Giphy = () => {
   const [data, setData] = useState([]);
