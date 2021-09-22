@@ -5,17 +5,25 @@ import Loader from "./Loader";
 const Giphy = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const results = await axios("https://api.giphy.com/v1/gifs/trending", {
+      setIsError(false);
+      try {
+        const results = await axios("https://5api.giphy.com/v1/gifs/trending", {
         params: {
           api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
         }
-      });
-      console.log(results);
-      setData(results.data.data);
+        });
+        console.log(results);
+        setData(results.data.data);
+      }
+      catch (err) {
+        setIsError(true);
+        setTimeout(() => setIsError(false), 4000);
+      }
       setIsLoading(false);
     };
     fetchData();
@@ -32,9 +40,26 @@ const Giphy = () => {
         </div>
       )
     })
-  }
+  };
 
-  return <div className="container gifs">{renderGifs()}</div>
+  const renderError = () => {
+    if (isError) {
+      return (
+        <div className="alert alert-danger alert-dismissable fade show" role="alert">
+          Unable to get GIFs. Please try again.
+        </div>
+      )
+    }
+  };
+
+  return (
+    <div className="m-2">
+      {renderError()}
+      <div className="container gifs">
+        {renderGifs()}
+      </div>
+    </div>
+  )
 };
 
 export default Giphy;
