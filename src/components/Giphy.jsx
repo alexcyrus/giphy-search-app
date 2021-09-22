@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Loader from "./Loader";
 
 const Giphy = () => {
   const [data, setData] = useState([]);
@@ -21,7 +22,7 @@ const Giphy = () => {
 
   const renderGifs = () => {
     if (isLoading) {
-      return <div>Loading...</div>
+      return <Loader />
     }
     return data.map(el => {
       return (
