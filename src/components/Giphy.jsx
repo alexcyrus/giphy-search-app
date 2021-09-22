@@ -4,6 +4,7 @@ import Loader from "./Loader";
 
 const Giphy = () => {
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -13,9 +14,9 @@ const Giphy = () => {
       setIsError(false);
       try {
         const results = await axios("https://api.giphy.com/v1/gifs/trending", {
-        params: {
-          api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
-        }
+          params: {
+            api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
+          }
         });
         console.log(results);
         setData(results.data.data);
@@ -52,9 +53,31 @@ const Giphy = () => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const results = await axios("https://api.giphy.com/v1/gifs/search", {
+      params: {
+        api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE",
+        q: search
+      }
+    });
+    setData(results.data.data);
+    setIsLoading(false);
+  };
+
   return (
     <div className="m-2">
       {renderError()}
+      <form className="form-inline justify-content-center m-2">
+        <input value={search} onChange={handleSearchChange} type="text" placeholder="Search" className="form-control" />
+        <button onClick={handleSubmit} type="submit" className="btn btn-primary mx-2">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
       <div className="container gifs">
         {renderGifs()}
       </div>
