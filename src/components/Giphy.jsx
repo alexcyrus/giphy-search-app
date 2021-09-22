@@ -12,7 +12,7 @@ const Giphy = () => {
       setIsLoading(true);
       setIsError(false);
       try {
-        const results = await axios("https://5api.giphy.com/v1/gifs/trending", {
+        const results = await axios("https://api.giphy.com/v1/gifs/trending", {
         params: {
           api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
         }
