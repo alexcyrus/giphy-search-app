@@ -95,8 +95,8 @@ const Giphy = () => {
       {renderError()}
       <form className="form-inline justify-content-center m-2">
         <input value={search} onChange={handleSearchChange} type="text" placeholder="Search" className="form-control" />
-        <button onClick={handleSubmit} type="submit" className="btn btn-primary mx-2">
-          <i class="fas fa-search" />
+        <button onClick={handleSubmit} type="submit" className="btn btn-primary btn-md">
+          <i className="fas fa-search" />
         </button>
       </form>
       <Paginate pageSelected={pageSelected} currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={data.length} />

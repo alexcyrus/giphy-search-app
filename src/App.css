@@ -17,3 +17,11 @@ body {
 .loader {
   color: #0d6efd;
 }
+
+.form-inline {
+  display: flex;
+}
+
+.form-control {
+  width: 25%;
+}
