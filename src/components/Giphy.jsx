@@ -12,6 +12,7 @@ const Giphy = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +22,7 @@ const Giphy = () => {
         const results = await axios("https://api.giphy.com/v1/gifs/trending", {
           params: {
             api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE",
-            limit: 10
+            limit: 100
           }
         });
         console.log(results);
@@ -40,7 +41,7 @@ const Giphy = () => {
     if (isLoading) {
       return <Loader />
     }
-    return data.map(el => {
+    return currentItems.map(el => {
       return (
         <div key={el.id} className="gif">
           <img src={el.images.fixed_height.url} />
@@ -85,6 +86,10 @@ const Giphy = () => {
     setIsLoading(false);
   };
 
+  const pageSelected = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  }
+
   return (
     <div className="m-2">
       {renderError()}
@@ -94,7 +99,7 @@ const Giphy = () => {
           <i class="fas fa-search" />
         </button>
       </form>
-      <Paginate currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={data.length} />
+      <Paginate pageSelected={pageSelected} currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={data.length} />
       <div className="container gifs">
         {renderGifs()}
       </div>
