@@ -15,7 +15,8 @@ const Giphy = () => {
       try {
         const results = await axios("https://api.giphy.com/v1/gifs/trending", {
           params: {
-            api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE"
+            api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE",
+            limit: 10
           }
         });
         console.log(results);
@@ -23,7 +24,7 @@ const Giphy = () => {
       }
       catch (err) {
         setIsError(true);
-        setTimeout(() => setIsError(false), 4000);
+        setTimeout(() => setIsError(false), 5000);
       }
       setIsLoading(false);
     };
@@ -59,13 +60,23 @@ const Giphy = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const results = await axios("https://api.giphy.com/v1/gifs/search", {
-      params: {
-        api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE",
-        q: search
-      }
-    });
-    setData(results.data.data);
+    setIsError(false);
+    setIsLoading(true);
+
+    try {
+      const results = await axios("https://api.giphy.com/v1/gifs/search", {
+        params: {
+          api_key: "1XhJ0iwNaQzWMqoIoWlRraoe9Gxo89PE",
+          q: search,
+          limit: 100
+        }
+      });
+      setData(results.data.data);
+    }
+    catch (err) {
+      setIsError(true);
+      setTimeout(() => setIsError(false), 5000);
+    }
     setIsLoading(false);
   };
 
