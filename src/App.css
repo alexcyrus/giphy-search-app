@@ -13,3 +13,7 @@ body {
 .gif {
   padding: 0 2px;
 }
+
+.loader {
+  color: #0d6efd;
+}
